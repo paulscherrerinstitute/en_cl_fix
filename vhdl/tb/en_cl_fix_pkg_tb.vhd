@@ -117,7 +117,13 @@ begin
 					"cl_fix_from_real Wrong: Integer only, Unsigned, NoFractional Bits, Positive");
 		CheckStdlv(	"110011", 	
 					cl_fix_from_real(	-3.25, (true, 3, 2)), 
-					"cl_fix_from_real Wrong: Integer and Fractional");	
+					"cl_fix_from_real Wrong: Integer and Fractional");
+        CheckStdlv(	"001101", 	
+					cl_fix_from_real(	3.24, (true, 3, 2)), 
+					"cl_fix_from_real Wrong: Rounding");
+        CheckStdlv(	"001100", 	
+					cl_fix_from_real(	3.124, (true, 3, 2)), 
+					"cl_fix_from_real Wrong: Rounding");	
 		CheckStdlv(	"11010", 	
 					cl_fix_from_real(	-3.24, (true, 3, 1)), 
 					"cl_fix_from_real Wrong: Rounding");	
@@ -815,15 +821,124 @@ begin
 									cl_fix_from_real(0.25, (true,3,3)), (true,3,3), '0', (true,3,3)), "Sub");		
 
 		-- *** cl_fix_saddsub ***
-		print("*** cl_fix_saddsub ***");
+        print("*** cl_fix_saddsub ***");
 		CheckStdlv(	cl_fix_from_real(1.75, (true,3,2)),
 					cl_fix_saddsub(	cl_fix_from_real(1.0, (true,3,2)), (true,3,2),
 									cl_fix_from_real(0.75, (true,3,2)), (true,3,2), '1', (true,3,2)), "Add");	
 		CheckStdlv(	cl_fix_from_real(0.75, (true,3,2)),
 					cl_fix_saddsub(	cl_fix_from_real(1.25, (true,3,2)), (true,3,2),
-									cl_fix_from_real(0.25, (true,3,2)), (true,3,2), '0', (true,3,2)), "Sub");											
-		wait;
+									cl_fix_from_real(0.25, (true,3,2)), (true,3,2), '0', (true,3,2)), "Sub");
+
+        -- *** cl_fix_from_real ***
+        print("*** cl_fix_from_real big nums ***");
+
+        CheckStdlv("011", cl_fix_from_real(1.5, (true, 1, 1)), "cl_fix_from_real: 1+2^-1");
+        CheckStdlv("0101", cl_fix_from_real(1.25, (true, 1, 2)), "cl_fix_from_real: 1+2^-2");
+        CheckStdlv("01001", cl_fix_from_real(1.125, (true, 1, 3)), "cl_fix_from_real: 1+2^-3");
+        CheckStdlv("010001", cl_fix_from_real(1.0625, (true, 1, 4)), "cl_fix_from_real: 1+2^-4");
+        CheckStdlv("0100001", cl_fix_from_real(1.03125, (true, 1, 5)), "cl_fix_from_real: 1+2^-5");
+        CheckStdlv("01000001", cl_fix_from_real(1.015625, (true, 1, 6)), "cl_fix_from_real: 1+2^-6");
+        CheckStdlv("010000001", cl_fix_from_real(1.0078125, (true, 1, 7)), "cl_fix_from_real: 1+2^-7");
+        CheckStdlv("0100000001", cl_fix_from_real(1.00390625, (true, 1, 8)), "cl_fix_from_real: 1+2^-8");
+        CheckStdlv("01000000001", cl_fix_from_real(1.001953125, (true, 1, 9)), "cl_fix_from_real: 1+2^-9");
+        CheckStdlv("010000000001", cl_fix_from_real(1.0009765625, (true, 1, 10)), "cl_fix_from_real: 1+2^-10");
+        CheckStdlv("0100000000001", cl_fix_from_real(1.00048828125, (true, 1, 11)), "cl_fix_from_real: 1+2^-11");
+        CheckStdlv("01000000000001", cl_fix_from_real(1.000244140625, (true, 1, 12)), "cl_fix_from_real: 1+2^-12");
+        CheckStdlv("010000000000001", cl_fix_from_real(1.0001220703125, (true, 1, 13)), "cl_fix_from_real: 1+2^-13");
+        CheckStdlv("0100000000000001", cl_fix_from_real(1.00006103515625, (true, 1, 14)), "cl_fix_from_real: 1+2^-14");
+        CheckStdlv("01000000000000001", cl_fix_from_real(1.000030517578125, (true, 1, 15)), "cl_fix_from_real: 1+2^-15");
+        CheckStdlv("010000000000000001", cl_fix_from_real(1.0000152587890625, (true, 1, 16)), "cl_fix_from_real: 1+2^-16");
+        CheckStdlv("0100000000000000001", cl_fix_from_real(1.0000076293945312, (true, 1, 17)), "cl_fix_from_real: 1+2^-17");
+        CheckStdlv("01000000000000000001", cl_fix_from_real(1.0000038146972656, (true, 1, 18)), "cl_fix_from_real: 1+2^-18");
+        CheckStdlv("010000000000000000001", cl_fix_from_real(1.0000019073486328, (true, 1, 19)), "cl_fix_from_real: 1+2^-19");
+        CheckStdlv("0100000000000000000001", cl_fix_from_real(1.0000009536743164, (true, 1, 20)), "cl_fix_from_real: 1+2^-20");
+        CheckStdlv("01000000000000000000001", cl_fix_from_real(1.0000004768371582, (true, 1, 21)), "cl_fix_from_real: 1+2^-21");
+        CheckStdlv("010000000000000000000001", cl_fix_from_real(1.000000238418579, (true, 1, 22)), "cl_fix_from_real: 1+2^-22");
+        CheckStdlv("0100000000000000000000001", cl_fix_from_real(1.0000001192092896, (true, 1, 23)), "cl_fix_from_real: 1+2^-23");
+        CheckStdlv("01000000000000000000000001", cl_fix_from_real(1.0000000596046448, (true, 1, 24)), "cl_fix_from_real: 1+2^-24");
+        CheckStdlv("010000000000000000000000001", cl_fix_from_real(1.0000000298023224, (true, 1, 25)), "cl_fix_from_real: 1+2^-25");
+        CheckStdlv("0100000000000000000000000001", cl_fix_from_real(1.0000000149011612, (true, 1, 26)), "cl_fix_from_real: 1+2^-26");
+        CheckStdlv("01000000000000000000000000001", cl_fix_from_real(1.0000000074505806, (true, 1, 27)), "cl_fix_from_real: 1+2^-27");
+        CheckStdlv("010000000000000000000000000001", cl_fix_from_real(1.0000000037252903, (true, 1, 28)), "cl_fix_from_real: 1+2^-28");
+        CheckStdlv("0100000000000000000000000000001", cl_fix_from_real(1.0000000018626451, (true, 1, 29)), "cl_fix_from_real: 1+2^-29");
+        CheckStdlv("01000000000000000000000000000001", cl_fix_from_real(1.0000000009313226, (true, 1, 30)), "cl_fix_from_real: 1+2^-30");
+        CheckStdlv("010000000000000000000000000000001", cl_fix_from_real(1.0000000004656613, (true, 1, 31)), "cl_fix_from_real: 1+2^-31");
+        CheckStdlv("0100000000000000000000000000000001", cl_fix_from_real(1.0000000002328306, (true, 1, 32)), "cl_fix_from_real: 1+2^-32");
+        CheckStdlv("01000000000000000000000000000000001", cl_fix_from_real(1.0000000001164153, (true, 1, 33)), "cl_fix_from_real: 1+2^-33");
+        CheckStdlv("010000000000000000000000000000000001", cl_fix_from_real(1.0000000000582077, (true, 1, 34)), "cl_fix_from_real: 1+2^-34");
+        CheckStdlv("0100000000000000000000000000000000001", cl_fix_from_real(1.0000000000291038, (true, 1, 35)), "cl_fix_from_real: 1+2^-35");
+        CheckStdlv("01000000000000000000000000000000000001", cl_fix_from_real(1.000000000014552, (true, 1, 36)), "cl_fix_from_real: 1+2^-36");
+        CheckStdlv("010000000000000000000000000000000000001", cl_fix_from_real(1.000000000007276, (true, 1, 37)), "cl_fix_from_real: 1+2^-37");
+        CheckStdlv("0100000000000000000000000000000000000001", cl_fix_from_real(1.000000000003638, (true, 1, 38)), "cl_fix_from_real: 1+2^-38");
+        CheckStdlv("01000000000000000000000000000000000000001", cl_fix_from_real(1.000000000001819, (true, 1, 39)), "cl_fix_from_real: 1+2^-39");
+        CheckStdlv("010000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000009095, (true, 1, 40)), "cl_fix_from_real: 1+2^-40");
+        CheckStdlv("0100000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000004547, (true, 1, 41)), "cl_fix_from_real: 1+2^-41");
+        CheckStdlv("01000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000002274, (true, 1, 42)), "cl_fix_from_real: 1+2^-42");
+        CheckStdlv("010000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000001137, (true, 1, 43)), "cl_fix_from_real: 1+2^-43");
+        CheckStdlv("0100000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000568, (true, 1, 44)), "cl_fix_from_real: 1+2^-44");
+        CheckStdlv("01000000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000284, (true, 1, 45)), "cl_fix_from_real: 1+2^-45");
+        CheckStdlv("010000000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000142, (true, 1, 46)), "cl_fix_from_real: 1+2^-46");
+        CheckStdlv("0100000000000000000000000000000000000000000000001", cl_fix_from_real(1.000000000000007, (true, 1, 47)), "cl_fix_from_real: 1+2^-47");
+        CheckStdlv("01000000000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000036, (true, 1, 48)), "cl_fix_from_real: 1+2^-48");
+        CheckStdlv("010000000000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000018, (true, 1, 49)), "cl_fix_from_real: 1+2^-49");
+        CheckStdlv("0100000000000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000009, (true, 1, 50)), "cl_fix_from_real: 1+2^-50");
+        CheckStdlv("01000000000000000000000000000000000000000000000000001", cl_fix_from_real(1.0000000000000004, (true, 1, 51)), "cl_fix_from_real: 1+2^-51");
+        CheckStdlv("11", cl_fix_from_real(-1.0, (true, 1, 0)), "cl_fix_from_real: 2^-0");
+        CheckStdlv("101", cl_fix_from_real(-1.5, (true, 1, 1)), "cl_fix_from_real: 2^-1");
+        CheckStdlv("1001", cl_fix_from_real(-1.75, (true, 1, 2)), "cl_fix_from_real: 2^-2");
+        CheckStdlv("10001", cl_fix_from_real(-1.875, (true, 1, 3)), "cl_fix_from_real: 2^-3");
+        CheckStdlv("100001", cl_fix_from_real(-1.9375, (true, 1, 4)), "cl_fix_from_real: 2^-4");
+        CheckStdlv("1000001", cl_fix_from_real(-1.96875, (true, 1, 5)), "cl_fix_from_real: 2^-5");
+        CheckStdlv("10000001", cl_fix_from_real(-1.984375, (true, 1, 6)), "cl_fix_from_real: 2^-6");
+        CheckStdlv("100000001", cl_fix_from_real(-1.9921875, (true, 1, 7)), "cl_fix_from_real: 2^-7");
+        CheckStdlv("1000000001", cl_fix_from_real(-1.99609375, (true, 1, 8)), "cl_fix_from_real: 2^-8");
+        CheckStdlv("10000000001", cl_fix_from_real(-1.998046875, (true, 1, 9)), "cl_fix_from_real: 2^-9");
+        CheckStdlv("100000000001", cl_fix_from_real(-1.9990234375, (true, 1, 10)), "cl_fix_from_real: 2^-10");
+        CheckStdlv("1000000000001", cl_fix_from_real(-1.99951171875, (true, 1, 11)), "cl_fix_from_real: 2^-11");
+        CheckStdlv("10000000000001", cl_fix_from_real(-1.999755859375, (true, 1, 12)), "cl_fix_from_real: 2^-12");
+        CheckStdlv("100000000000001", cl_fix_from_real(-1.9998779296875, (true, 1, 13)), "cl_fix_from_real: 2^-13");
+        CheckStdlv("1000000000000001", cl_fix_from_real(-1.99993896484375, (true, 1, 14)), "cl_fix_from_real: 2^-14");
+        CheckStdlv("10000000000000001", cl_fix_from_real(-1.999969482421875, (true, 1, 15)), "cl_fix_from_real: 2^-15");
+        CheckStdlv("100000000000000001", cl_fix_from_real(-1.9999847412109375, (true, 1, 16)), "cl_fix_from_real: 2^-16");
+        CheckStdlv("1000000000000000001", cl_fix_from_real(-1.9999923706054688, (true, 1, 17)), "cl_fix_from_real: 2^-17");
+        CheckStdlv("10000000000000000001", cl_fix_from_real(-1.9999961853027344, (true, 1, 18)), "cl_fix_from_real: 2^-18");
+        CheckStdlv("100000000000000000001", cl_fix_from_real(-1.9999980926513672, (true, 1, 19)), "cl_fix_from_real: 2^-19");
+        CheckStdlv("1000000000000000000001", cl_fix_from_real(-1.9999990463256836, (true, 1, 20)), "cl_fix_from_real: 2^-20");
+        CheckStdlv("10000000000000000000001", cl_fix_from_real(-1.9999995231628418, (true, 1, 21)), "cl_fix_from_real: 2^-21");
+        CheckStdlv("100000000000000000000001", cl_fix_from_real(-1.999999761581421, (true, 1, 22)), "cl_fix_from_real: 2^-22");
+        CheckStdlv("1000000000000000000000001", cl_fix_from_real(-1.9999998807907104, (true, 1, 23)), "cl_fix_from_real: 2^-23");
+        CheckStdlv("10000000000000000000000001", cl_fix_from_real(-1.9999999403953552, (true, 1, 24)), "cl_fix_from_real: 2^-24");
+        CheckStdlv("100000000000000000000000001", cl_fix_from_real(-1.9999999701976776, (true, 1, 25)), "cl_fix_from_real: 2^-25");
+        CheckStdlv("1000000000000000000000000001", cl_fix_from_real(-1.9999999850988388, (true, 1, 26)), "cl_fix_from_real: 2^-26");
+        CheckStdlv("10000000000000000000000000001", cl_fix_from_real(-1.9999999925494194, (true, 1, 27)), "cl_fix_from_real: 2^-27");
+        CheckStdlv("100000000000000000000000000001", cl_fix_from_real(-1.9999999962747097, (true, 1, 28)), "cl_fix_from_real: 2^-28");
+        CheckStdlv("1000000000000000000000000000001", cl_fix_from_real(-1.9999999981373549, (true, 1, 29)), "cl_fix_from_real: 2^-29");
+        CheckStdlv("10000000000000000000000000000001", cl_fix_from_real(-1.9999999990686774, (true, 1, 30)), "cl_fix_from_real: 2^-30");
+        CheckStdlv("100000000000000000000000000000001", cl_fix_from_real(-1.9999999995343387, (true, 1, 31)), "cl_fix_from_real: 2^-31");
+        CheckStdlv("1000000000000000000000000000000001", cl_fix_from_real(-1.9999999997671694, (true, 1, 32)), "cl_fix_from_real: 2^-32");
+        CheckStdlv("10000000000000000000000000000000001", cl_fix_from_real(-1.9999999998835847, (true, 1, 33)), "cl_fix_from_real: 2^-33");
+        CheckStdlv("100000000000000000000000000000000001", cl_fix_from_real(-1.9999999999417923, (true, 1, 34)), "cl_fix_from_real: 2^-34");
+        CheckStdlv("1000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999708962, (true, 1, 35)), "cl_fix_from_real: 2^-35");
+        CheckStdlv("10000000000000000000000000000000000001", cl_fix_from_real(-1.999999999985448, (true, 1, 36)), "cl_fix_from_real: 2^-36");
+        CheckStdlv("100000000000000000000000000000000000001", cl_fix_from_real(-1.999999999992724, (true, 1, 37)), "cl_fix_from_real: 2^-37");
+        CheckStdlv("1000000000000000000000000000000000000001", cl_fix_from_real(-1.999999999996362, (true, 1, 38)), "cl_fix_from_real: 2^-38");
+        CheckStdlv("10000000000000000000000000000000000000001", cl_fix_from_real(-1.999999999998181, (true, 1, 39)), "cl_fix_from_real: 2^-39");
+        CheckStdlv("100000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999990905, (true, 1, 40)), "cl_fix_from_real: 2^-40");
+        CheckStdlv("1000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999995453, (true, 1, 41)), "cl_fix_from_real: 2^-41");
+        CheckStdlv("10000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999997726, (true, 1, 42)), "cl_fix_from_real: 2^-42");
+        CheckStdlv("100000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999998863, (true, 1, 43)), "cl_fix_from_real: 2^-43");
+        CheckStdlv("1000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999432, (true, 1, 44)), "cl_fix_from_real: 2^-44");
+        CheckStdlv("10000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999716, (true, 1, 45)), "cl_fix_from_real: 2^-45");
+        CheckStdlv("100000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999858, (true, 1, 46)), "cl_fix_from_real: 2^-46");
+        CheckStdlv("1000000000000000000000000000000000000000000000001", cl_fix_from_real(-1.999999999999993, (true, 1, 47)), "cl_fix_from_real: 2^-47");
+        CheckStdlv("10000000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999964, (true, 1, 48)), "cl_fix_from_real: 2^-48");
+        CheckStdlv("100000000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999982, (true, 1, 49)), "cl_fix_from_real: 2^-49");
+        CheckStdlv("1000000000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999991, (true, 1, 50)), "cl_fix_from_real: 2^-50");
+        CheckStdlv("10000000000000000000000000000000000000000000000000001", cl_fix_from_real(-1.9999999999999996, (true, 1, 51)), "cl_fix_from_real: 2^-51");
+        CheckStdlv("10000000000000000000000000000000000000000000000000001", cl_fix_from_real(0.5000000000000001, (false, 0, 53)), "cl_fix_from_real: 0.5+2^-53");
+
+        wait;
 	end process;
 
-
+    
 end sim;
